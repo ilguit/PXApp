@@ -23,6 +23,7 @@ public class RabbitMqService : IRabbitMqService
 
     public void SendMessage(string message)
     {
+        //TODO: перенести в конструктор
         var rabbitMqSettings = _configuration.GetSection(RabbitMqSettings.ConfigSection).Get<RabbitMqSettings>();
 
         if (string.IsNullOrEmpty(rabbitMqSettings?.HostName))

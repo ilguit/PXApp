@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PXApp.MauiBlazor", "PXApp.M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PXApp.API", "PXApp.API\PXApp.API.csproj", "{F2E0491C-C988-4204-BC08-D54ACA828611}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PXApp.Core", "PXApp.Core\PXApp.Core.csproj", "{C1A52789-8BD1-4A09-9D9F-16B98A067748}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{F2E0491C-C988-4204-BC08-D54ACA828611}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2E0491C-C988-4204-BC08-D54ACA828611}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2E0491C-C988-4204-BC08-D54ACA828611}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1A52789-8BD1-4A09-9D9F-16B98A067748}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1A52789-8BD1-4A09-9D9F-16B98A067748}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1A52789-8BD1-4A09-9D9F-16B98A067748}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1A52789-8BD1-4A09-9D9F-16B98A067748}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

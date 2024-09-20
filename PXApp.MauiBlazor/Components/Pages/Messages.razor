@@ -1,0 +1,27 @@
+﻿@page "/"
+
+<PageTitle>Сообщения</PageTitle>
+
+<div>
+    <InputTextArea
+        @bind-Value="@_messageBody"
+        class="message-input"
+        />
+    <button class="btn btn-primary" @onclick="OnSendMessageClick">Отправить</button>
+</div>
+<div>
+    @foreach (var message in _messages)
+    {
+        <div class="message row">
+            <div class="col-8">
+                @message.Body
+            </div>
+            <div class="col-2 float-end">
+                @message.DateCreated
+            </div>
+            <div class="col-2">
+                <button class="btn btn-danger float-end" @onclick="() => OnDeleteMessageClick(message)">X</button>
+            </div>
+        </div>  
+    }
+</div>

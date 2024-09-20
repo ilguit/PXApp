@@ -11,14 +11,11 @@ public static class Configure
         
         const string configurationsDirectory = "Config";
             
-        // var env = builder.Environment;
-
         config
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-            // .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true)
-            .AddJsonFile($"{configurationsDirectory}/rabbitmq.json", optional: false, reloadOnChange: true);
-            // .AddJsonFile($"{configurationsDirectory}/database.{env.EnvironmentName}.json", optional: true, reloadOnChange: true)
-            // .AddEnvironmentVariables();
+            .AddJsonFile($"{configurationsDirectory}/rabbitmq.json", optional: false, reloadOnChange: true)
+            .AddJsonFile($"{configurationsDirectory}/database.json", optional: true,
+                reloadOnChange: true);
 
         return builder;
     }

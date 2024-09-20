@@ -1,0 +1,8 @@
+{
+  "DatabaseSettings": {
+    "Endpoint": "localhost",
+    "UserId": "postgres",
+    "Password": "123",
+    "Database": "pxapp"
+  }
+}

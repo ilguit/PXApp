@@ -14,6 +14,7 @@ public static class Configure
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             // .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true)
             .AddJsonFile($"{configurationsDirectory}/rabbitmq.json", optional: false, reloadOnChange: true)
+            .AddJsonFile($"{configurationsDirectory}/api.json", optional: false, reloadOnChange: true)
             // .AddJsonFile($"{configurationsDirectory}/database.{env.EnvironmentName}.json", optional: true, reloadOnChange: true)
             .AddEnvironmentVariables();
 

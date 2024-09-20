@@ -8,6 +8,12 @@
 
     <ItemGroup>
       <ProjectReference Include="..\PXApp.Common\PXApp.Common.csproj" />
+      <ProjectReference Include="..\PXApp.Core\PXApp.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="13.0.1" />
+      <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0" />
     </ItemGroup>
 
 </Project>

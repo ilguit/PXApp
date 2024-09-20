@@ -1,10 +1,2 @@
-/PXApp.API/bin
-/PXApp.API/obj
-/PXApp.Bootstrap/bin
-/PXApp.Bootstrap/obj
-/PXApp.Common/bin
-/PXApp.Common/obj
-/PXApp.MauiBlazor/bin
-/PXApp.MauiBlazor/obj
-/PXApp.Web/bin
-/PXApp.Web/obj
+**/bin
+**/obj
