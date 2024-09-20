@@ -1,20 +1,27 @@
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using PXApp.API.Contracts.Service;
 using PXApp.API.Entity;
 using PXApp.API.Entity.Message;
 using PXApp.Common.Contracts;
+using PXApp.Common.RabbitMq;
 using PXApp.Core.Db.Entity;
 
 namespace PXApp.API.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Microsoft.AspNetCore.Mvc.Route("api/[controller]")]
 // [Authorize]
 public class MessagesController : BaseController<TableMessage, MessageResponse>
 {
-    public MessagesController(IServiceMapper mapper, IService<TableMessage> service) : base(mapper, service)
+    private IRabbitMqService _rabbitMqService { get; set; }
+
+    public MessagesController(IServiceMapper mapper,
+        IService<TableMessage> service,
+        IRabbitMqService rabbitMqService) : base(mapper, service)
     {
+        _rabbitMqService = rabbitMqService;
     }
 
     [HttpGet]
@@ -35,7 +42,11 @@ public class MessagesController : BaseController<TableMessage, MessageResponse>
     // [SwaggerOperation("Создание сообщения")]
     public async Task<ActionResult<MessageResponse>> Post(MessagePostRequest request)
     {
-        return await base.Post<MessagePostRequest, MessagePostBody>(request);
+        var result = await base.Post<MessagePostRequest, MessagePostBody>(request);
+        
+        if (result.Value?.Body != null) _rabbitMqService.SendMessage(result.Value.Body);
+        
+        return result;
     }
 
     [HttpPut("{Id:guid}")]
@@ -49,6 +60,8 @@ public class MessagesController : BaseController<TableMessage, MessageResponse>
     // [SwaggerOperation("Удаление сообщения")]
     public async Task<ActionResult> Delete(MessageDeleteRequest request)
     {
-        return await base.Delete(request);
+        var result = await base.Delete(request);
+        _rabbitMqService.SendMessage("Сообщение удалено");
+        return result;
     }
 }

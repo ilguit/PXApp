@@ -9,7 +9,6 @@ public static class ConfigureServices
 {
     internal static IServiceCollection AddDataServices(this IServiceCollection services)
     {
-        services.AddScoped<IRabbitMqService, RabbitMqService>();
         //BackgroundService не работает в Андроиде
         // services.AddHostedService<RabbitMqListener>();
         // services.AddSingleton<INotificationProvider, NotificationProvider>();

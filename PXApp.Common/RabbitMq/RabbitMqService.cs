@@ -9,11 +9,36 @@ using System.Text.Json;
 
 public class RabbitMqService : IRabbitMqService
 {
-    private readonly IConfiguration _configuration;
+    private readonly string _queueName;
+    private readonly IModel _channel;
 
     public RabbitMqService(IConfiguration configuration)
     {
-        _configuration = configuration;
+        var rabbitMqSettings = configuration.GetSection(RabbitMqSettings.ConfigSection).Get<RabbitMqSettings>();
+        
+        var hostName = rabbitMqSettings?.HostName ?? string.Empty;
+        _queueName = rabbitMqSettings?.QueueName ?? string.Empty;
+
+        if (string.IsNullOrEmpty(hostName))
+        {
+            throw new InvalidOperationException("RabbitMQ HostName is not set");
+        }
+        
+        var factory = new ConnectionFactory
+        {
+            HostName = hostName,
+            // Port = rabbitMqSettings.Port,
+            // UserName = rabbitMqSettings.UserName,
+            // Password = rabbitMqSettings.Password
+        };
+        var connection = factory.CreateConnection();
+        
+        _channel = connection.CreateModel();
+        _channel.QueueDeclare(queue: _queueName,
+            durable: false,
+            exclusive: false,
+            autoDelete: false,
+            arguments: null);
     }
     public void SendMessage(object obj)
     {
@@ -23,35 +48,11 @@ public class RabbitMqService : IRabbitMqService
 
     public void SendMessage(string message)
     {
-        //TODO: перенести в конструктор
-        var rabbitMqSettings = _configuration.GetSection(RabbitMqSettings.ConfigSection).Get<RabbitMqSettings>();
+        var body = Encoding.UTF8.GetBytes(message);
 
-        if (string.IsNullOrEmpty(rabbitMqSettings?.HostName))
-        {
-            throw new InvalidOperationException("RabbitMQ HostName is not set");
-        }
-        var factory = new ConnectionFactory
-        {
-            HostName = rabbitMqSettings.HostName,
-            // Port = rabbitMqSettings.Port,
-            // UserName = rabbitMqSettings.UserName,
-            // Password = rabbitMqSettings.Password
-        };
-        using var connection = factory.CreateConnection();
-        using (var channel = connection.CreateModel())
-        {
-            channel.QueueDeclare(queue: rabbitMqSettings.QueueName,
-                durable: false,
-                exclusive: false,
-                autoDelete: false,
-                arguments: null);
-
-            var body = Encoding.UTF8.GetBytes(message);
-
-            channel.BasicPublish(exchange: string.Empty,
-                routingKey: rabbitMqSettings.QueueName,
-                basicProperties: null,
-                body: body);
-        }
+        _channel.BasicPublish(exchange: string.Empty,
+            routingKey: _queueName,
+            basicProperties: null,
+            body: body);
     }
 }

@@ -24,7 +24,7 @@ public class BaseApiService<TEntity> :IApiService<TEntity>
             new MediaTypeWithQualityHeaderValue("application/json"));
     }
 
-    public async Task<TEntity> GetAsync(Guid id)
+    public Task<TEntity> GetAsync(Guid id)
     {
         throw new NotImplementedException();
     }
@@ -47,7 +47,7 @@ public class BaseApiService<TEntity> :IApiService<TEntity>
         response.EnsureSuccessStatusCode();
     }
 
-    public async Task UpdateAsync(TEntity entity)
+    public Task UpdateAsync(TEntity entity)
     {
         throw new NotImplementedException();
     }

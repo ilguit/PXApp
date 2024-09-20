@@ -13,9 +13,6 @@ public partial class Messages
     private string _messageBody = string.Empty;
     
     [Inject]
-    public IRabbitMqService RabbitMqService { get; set; } = null!;
-
-    [Inject]
     public INotificationProvider NotificationProvider { get; set; } = null!;
     
     [Inject]
@@ -57,7 +54,6 @@ public partial class Messages
         if (string.IsNullOrEmpty(_messageBody)) return;
         
         await SendMessage(_messageBody);
-        RabbitMqService.SendMessage(_messageBody);
     }
 
     private async Task SendMessage(string body)
@@ -68,7 +64,6 @@ public partial class Messages
     private async Task OnDeleteMessageClick(Message message)
     {
         await DeleteMessage(message);
-        RabbitMqService.SendMessage("Удалено");
     }
 
     private async Task DeleteMessage(Message message)
