@@ -1,4 +1,5 @@
 ﻿using PXApp.Common.Contracts;
+using PXApp.Common.Data;
 using PXApp.Common.RabbitMq;
 using PXApp.MauiBlazor.Common;
 
@@ -12,6 +13,8 @@ public static class ConfigureServices
         //BackgroundService не работает в Андроиде
         // services.AddHostedService<RabbitMqListener>();
         // services.AddSingleton<INotificationProvider, NotificationProvider>();
+        
+        services.AddSingleton<MessageService>();
         
         return services;
     }

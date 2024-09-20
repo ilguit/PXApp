@@ -2,6 +2,7 @@
 using PXApp.Common.Contracts;
 using PXApp.Common.RabbitMq;
 using System.Net.Http.Headers;
+using PXApp.Common.Data;
 using PXApp.Common.Data.Entity;
 
 namespace PXApp.Web.Components.Pages;
@@ -10,16 +11,15 @@ public partial class Messages
 {
     private List<Message> _messages = new();
     private string _messageBody = string.Empty;
-    private const string ApiPath = "/api/messages";
-    private const string ApiBaseAddr = "http://192.168.0.10:5001/";
-    
-    static HttpClient client = new ();
     
     [Inject]
     public IRabbitMqService RabbitMqService { get; set; } = null!;
 
     [Inject]
     public INotificationProvider NotificationProvider { get; set; } = null!;
+    
+    [Inject]
+    public MessageService MessageService { get; set; } = null!;
     
     protected override async Task OnInitializedAsync()
     {
@@ -29,15 +29,6 @@ public partial class Messages
             InvokeAsync(Refresh);
             
         };
-        
-        //TODO: временное решение
-        if(client.BaseAddress == null)
-        {
-            client.BaseAddress = new Uri(ApiBaseAddr);
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-        }
         
         await UpdateMessages();
         
@@ -51,13 +42,7 @@ public partial class Messages
 
     private async Task<List<Message>> GetMessages()
     {
-        var messages = new CollectionResponse<Message>();
-        var response = await client.GetAsync(ApiPath);
-        if (response.IsSuccessStatusCode)
-        {
-            messages = await response.Content.ReadAsAsync<CollectionResponse<Message>>();
-        }
-        return messages.Items;
+        return await MessageService.GetAsync();
     }
 
     private async Task Refresh()
@@ -77,10 +62,7 @@ public partial class Messages
 
     private async Task SendMessage(string body)
     {
-        var message = new Message(body);
-        var response = await client.PostAsJsonAsync(
-            ApiPath, message);
-        response.EnsureSuccessStatusCode();
+        await MessageService.AddAsync(new Message(body));
     }
 
     private async Task OnDeleteMessageClick(Message message)
@@ -91,8 +73,6 @@ public partial class Messages
 
     private async Task DeleteMessage(Message message)
     {
-        var response = await client.DeleteAsync($"{ApiPath}/{message.Id}");
-        
-        response.EnsureSuccessStatusCode();
+        await MessageService.DeleteAsync(message);
     }
 }

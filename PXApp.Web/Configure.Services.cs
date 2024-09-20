@@ -1,4 +1,5 @@
 ﻿using PXApp.Common.Contracts;
+using PXApp.Common.Data;
 using PXApp.Common.RabbitMq;
 using PXApp.Web.Common;
 
@@ -11,6 +12,8 @@ public static class ConfigureServices
         services.AddScoped<IRabbitMqService, RabbitMqService>();
         services.AddHostedService<RabbitMqListener>();
         services.AddSingleton<INotificationProvider, NotificationProvider>();
+        
+        services.AddScoped<MessageService>();
         
         return services;
     }
