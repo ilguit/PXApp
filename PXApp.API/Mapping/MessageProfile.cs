@@ -10,8 +10,12 @@ public class MessageProfile : Profile
     {
         CreateMap<TableMessage, MessageResponse>();
 
-        CreateMap<MessagePostBody, TableMessage>();
+        CreateMap<MessagePostBody, TableMessage>()
+            .ForMember(s => s.DateCreated, o => o.Ignore())
+            .ForMember(s => s.Id, o => o.Ignore());
 
-        CreateMap<MessagePutBody, TableMessage>();
+        CreateMap<MessagePutBody, TableMessage>()
+            .ForMember(s => s.DateCreated, o => o.Ignore())
+            .ForMember(s => s.Id, o => o.Ignore());
     }
 }

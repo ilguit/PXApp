@@ -6,9 +6,6 @@ namespace PXApp.API.Entity.Message;
 public class MessageGetRequest :
     IRequestAll
 {
-    [FromRoute]
-    public Guid DepartmentId { get; set; }
-
     [FromQuery]
     // [SwaggerParameter(ParametersConstants.Take)]
     public int? Take { get; set; }

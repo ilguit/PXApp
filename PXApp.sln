@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PXApp.API", "PXApp.API\PXAp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PXApp.Core", "PXApp.Core\PXApp.Core.csproj", "{C1A52789-8BD1-4A09-9D9F-16B98A067748}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PXApp.Tests", "PXApp.Tests\PXApp.Tests.csproj", "{78B6224A-CF49-431D-89CC-AD153C0283C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{C1A52789-8BD1-4A09-9D9F-16B98A067748}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C1A52789-8BD1-4A09-9D9F-16B98A067748}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C1A52789-8BD1-4A09-9D9F-16B98A067748}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78B6224A-CF49-431D-89CC-AD153C0283C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78B6224A-CF49-431D-89CC-AD153C0283C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78B6224A-CF49-431D-89CC-AD153C0283C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78B6224A-CF49-431D-89CC-AD153C0283C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
